@@ -21,7 +21,7 @@ df['data_coleta'] = pd.to_datetime(datetime.datetime.now())
 # tratar tipos dos dados 
 
 df['preco'] = df['preco'].fillna(0).astype(float)
-df['preco'] = df['cents'].fillna(0).astype(float)
+df['cents'] = df['cents'].fillna(0).astype(float)
 
 # tratamento da coluna reviews amount
 df['reviews amount'] = df['reviews amount'].str.replace('[\(\)]','',regex=True)
