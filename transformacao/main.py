@@ -45,7 +45,7 @@ df.drop(columns=['preco', 'cents'], inplace=True)
 conn = sqlite3.connect('../dados/banco.db')
 
 # salvar arquivo no banco de dados
-df.to_sql('base_dados', conn, if_exists='replace', index=False)
+df.to_sql('base_dados', conn, if_exists='replace', index=True)
 
 # fechar conexao 
 conn.close()
