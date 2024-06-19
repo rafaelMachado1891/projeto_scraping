@@ -4,7 +4,7 @@ import scrapy
 class MercadolivreSpider(scrapy.Spider):
     name = "mercadolivre"
     allowed_domains = ["lista.mercadolivre.com.br"]
-    start_urls = ["https://lista.mercadolivre.com.br/luminarias-arandelas-externas"]
+    start_urls = ["https://lista.mercadolivre.com.br/luminarias-area-externa"]
     page_count = 1
     max_pages = 20
 
