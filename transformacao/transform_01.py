@@ -13,7 +13,7 @@ def read_jsonl(filepath):
 
 # Leitura do meu arquivo jsonl
 try:
-    df = read_jsonl('../dados/dados_01.jsonl')
+    df = read_jsonl('../dados/luminarias.jsonl')
 except Exception as e:
     print(f"Erro ao ler o arquivo JSON Lines: {e}")
     raise
@@ -22,7 +22,7 @@ except Exception as e:
 pd.options.display.max_columns = None
 
 # Adicionar coluna com o caminho da extração dos dados
-df['source'] = 'https://lista.mercadolivre.com.br/luminarias-area-externa'
+df['source'] = 'https://lista.mercadolivre.com.br/luminarias'
 
 # Adicionar coluna com a hora da extração
 df['data_coleta'] = pd.to_datetime(datetime.datetime.now())
@@ -44,8 +44,23 @@ df['price'] = df['preco'] + df['cents'] / 100
 # Excluir colunas preco e centavos
 df.drop(columns=['preco', 'cents'], inplace=True)
 
+# Lista de palavras-chave para categorias
+categorias = ['Spot', 'Pendente', 'Arandela', 'Abajur', 'Trilho', 'Balizador', 'Projetor', 'Poste', 'Luminaria', 'Plafon']
+
+# Função para identificar categoria com base nas palavras-chave
+def identificar_categoria(produto):
+    for categoria in categorias:
+        if categoria in produto.lower():
+            return categoria
+    return 'Luminaria'
+
+# Aplicar a função para criar a coluna "categoria"
+df['categoria'] = df['produto'].apply(identificar_categoria)
+
+
+
 # Conectar no banco de dados
-conn = sqlite3.connect('../dados/banco_01.db')
+conn = sqlite3.connect('../dados/tabela.db')
 
 # Salvar arquivo no banco de dados
 try:
