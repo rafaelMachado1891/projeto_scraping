@@ -45,7 +45,7 @@ df['price'] = df['preco'] + df['cents'] / 100
 df.drop(columns=['preco', 'cents'], inplace=True)
 
 # Lista de palavras-chave para categorias
-categorias = ['spot', 'pendente', 'arandela', 'abajur', 'trilho', 'balizador', 'projetor', 'poste', 'luminaria']
+categorias = ['spot', 'pendente', 'arandela', 'abajur', 'trilho', 'balizador', 'projetor', 'poste', 'luminária', 'plafon', 'embutido', 'embutir','chão']
 
 # Função para identificar categoria com base nas palavras-chave
 def identificar_categoria(produto):
