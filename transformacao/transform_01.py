@@ -68,7 +68,7 @@ def identificar_categoria(produto):
 df['categoria'] = df['produto'].apply(identificar_categoria)
 
 # Conectar no banco de dados
-conn = sqlite3.connect('../dados/tabela.db')
+conn = sqlite3.connect('../dados/tabela_01.db')
 
 # Salvar arquivo no banco de dados
 try:
