@@ -4,9 +4,9 @@ import scrapy
 class MercadolivreSpider(scrapy.Spider):
     name = "mercadolivre"
     allowed_domains = ["lista.mercadolivre.com.br"]
-    start_urls = ["https://lista.mercadolivre.com.br/luminarias-area-externa"]
+    start_urls = ["https://lista.mercadolivre.com.br/luminarias"]
     page_count = 1
-    max_pages = 20
+    max_pages = 50
 
     def parse(self, response):
         products = response.css('div.ui-search-result__wrapper')
