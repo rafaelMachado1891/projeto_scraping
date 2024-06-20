@@ -31,9 +31,18 @@ df['data_coleta'] = pd.to_datetime(datetime.datetime.now())
 df['preco'] = df['preco'].fillna(0).astype(float)
 df['cents'] = df['cents'].fillna(0).astype(float)
 
-# Tratamento da coluna reviews amount
-df['reviews amount'] = df['reviews amount'].str.replace('[\(\)]', '', regex=True)
-df['reviews amount'] = df['reviews amount'].fillna(0).astype(int)
+# Renomear colunas
+df.rename(columns={
+    'reviews rating number': 'reviews_rating_number',
+    'reviews amount': 'reviews_amount'
+}, inplace=True)
+
+# Tratamento da coluna reviews_amount
+df['reviews_amount'] = df['reviews_amount'].str.replace('[\(\)]', '', regex=True)
+df['reviews_amount'] = df['reviews_amount'].fillna(0).astype(int)
+
+# Tratamento da coluna reviews_rating_number
+df['reviews_rating_number'] = df['reviews_rating_number'].fillna(0).astype(float)
 
 # Tratamento da coluna loja
 df['loja'] = df['loja'].fillna('nao_informado')
@@ -45,7 +54,7 @@ df['price'] = df['preco'] + df['cents'] / 100
 df.drop(columns=['preco', 'cents'], inplace=True)
 
 # Lista de palavras-chave para categorias
-categorias = ['spot', 'pendente', 'arandela', 'abajur', 'trilho', 'balizador', 'projetor', 'poste', 'luminária', 'plafon', 'embutido', 'embutir','chão']
+categorias = ['spot', 'pendente', 'arandela', 'abajur', 'trilho', 'balizador', 'projetor', 'poste', 'luminária', 'plafon', 'embutido', 'embutir', 'chão']
 
 # Função para identificar categoria com base nas palavras-chave
 def identificar_categoria(produto):
@@ -57,7 +66,6 @@ def identificar_categoria(produto):
 
 # Aplicar a função para criar a coluna "categoria"
 df['categoria'] = df['produto'].apply(identificar_categoria)
-
 
 # Conectar no banco de dados
 conn = sqlite3.connect('../dados/tabela.db')
